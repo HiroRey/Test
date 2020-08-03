@@ -12,6 +12,7 @@ use Yii;
  * @property string|null $shortDescription
  * @property string|null $createData
  * @property string|null $description
+ * @property Comment[] $comments
  */
 class Post extends \yii\db\ActiveRecord
 {
@@ -60,5 +61,10 @@ class Post extends \yii\db\ActiveRecord
             self::SCENARIO_ADMIN_EDIT => ['title', 'shortDescription', 'description'],
             self::SCENARIO_USER_EDIT => ['title', 'shortDescription', 'description']
         ]);
+    }
+
+    public function getComments()
+    {
+       return $this->hasMany(Comment::class, ['postId' => 'id']);
     }
 }

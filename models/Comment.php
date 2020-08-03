@@ -13,7 +13,7 @@ use Yii;
  * @property string|null $content
  * @property string|null $currentDataCreate
  * @property int|null $postId
- * @property Comment[] $comments
+ * @property Post[] $post
  */
 class Comment extends \yii\db\ActiveRecord
 {
@@ -53,8 +53,8 @@ class Comment extends \yii\db\ActiveRecord
         ];
     }
 
-    public function getComments()
+    public function getPost()
     {
-        $this->hasMany(Comment::class, ['postId' => $this->id]);
+       return $this->hasOne(Post::class, ['id' => 'postId']);
     }
 }

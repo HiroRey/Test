@@ -1,7 +1,10 @@
 <?php
 /**
+ * @var \app\models\Comment $commentt
  * @var \app\models\Post $post
  */
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
 ?>
 
 <table class="table">
@@ -22,15 +25,28 @@
 </table>
 
 <hr>
+<h2>List Comments:</h2>
+    <div class="alert alert-warning" role="alert">
+        <?php foreach ($post->comments as $comment) : ?>
+            <h3><?=$comment->name ?></h3>
+            <h3><?=$comment->email ?></h3>
+            <h4><?=$comment->currentDataCreate ?></h4>
+            <p><?=$comment->content ?></p>
+            <p>Name post: <?=$comment->post->title ?></p>
+            <hr>
+        <?php endforeach; ?>
+    </div>
+<h2>Add Comments:</h2>
+<?php  $form = ActiveForm::begin(['action' => '/post/comment/?id=' . $post->id]) ?>
 
-<div class="alert alert-light" role="alert">
-    <?=\yii\helpers\Html::a('Create Comment', "/post/createComment/" . $post->id, ['class' => 'btn btn-success btn-lg active'])?>
+<?=$form->field($commentt, 'name')->textInput()->hint('Пожалуйста, введите ваше имя')?>
+<?=$form->field($commentt, 'email')->textInput()->hint('Пожалуйста, введите ваш email')?>
+<?=$form->field($commentt, 'content')->textInput()->hint('Пожалуйста, введите полное описание')?>
+
+<div class="form-group">
+    <?= Html::submitButton('Create', ['class' => 'btn btn-success']) ?>
 </div>
 
-<div class="alert alert-dark" role="alert">
-<h3><?=$post->comments->name?></h3>
-    <h3><?=$post->comments->email ?></h3>
-    <h4><?=$post->comments->currentDataCreate ?></h4>
-    <p><?=$post->comments->content ?></p>
-</div>
+<?php ActiveForm::end(); ?>
+
 

@@ -4,6 +4,7 @@
 namespace app\controllers;
 
 
+use app\models\Comment;
 use app\models\Post;
 use yii\web\Controller;
 
@@ -19,8 +20,9 @@ class PostController extends Controller
     public function actionView($id)
     {
         $post = Post::findOne($id);
+        $comment = new Comment();
 
-        return $this->render('view', ['post' => $post]);
+        return $this->render('view', ['post' => $post, 'commentt' => $comment]);
 
     }
 
@@ -63,6 +65,26 @@ class PostController extends Controller
             $post->delete();
             $this->redirect('../index');
         }
+    }
+
+    public function actionComment($id)
+    {
+        $comment = new Comment();
+
+
+
+        if (\Yii::$app->request->isPost) {
+
+            $comment->load(\Yii::$app->request->post());
+            $comment->postId = $id;
+
+            if($comment->save()) {
+               return $this->redirect('/post/view/?id=' . $id);
+            } else {
+                $this->redirect('/post/view/?id=' . $id);
+            }
+        }
+
     }
 
 
