@@ -29,7 +29,7 @@
             <td><?=$post->shortDescription ?></td>
             <td><?=\yii\helpers\Html::a('View', "/post/view/?id=" . $post->id, ['class' => 'btn btn-primary'])?></td>
             <td><?=\yii\helpers\Html::a('Update', "/post/update/?id=" . $post->id, ['class' => 'btn btn-warning'])?></td>
-            <td><?=\yii\helpers\Html::a('Delete', "/post/delete/?id=" . $post->id, ['class' => 'btn btn-danger'])?></td>
+            <td><?=\yii\helpers\Html::a('Delete', "/post/delete/?id=" . $post->id, ['class' => 'btn btn-danger', 'onclick' => 'return confirm("Are you sure?")'])?></td>
         </tr>
     <?php endforeach; ?>
     </tbody>

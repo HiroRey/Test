@@ -29,9 +29,12 @@ class PostController extends Controller
         $post = new Post();
 
         if (\Yii::$app->request->isPost) {
+
             $post->load(\Yii::$app->request->post());
-            $post->save();
-            $this->redirect('../index');
+            $post->setScenario(Post::SCENARIO_USER_EDIT);
+            if($post->save()) {
+               $this->redirect('../index');
+            }
         }
 
         return $this->render('create', ['post' => $post]);
@@ -41,10 +44,12 @@ class PostController extends Controller
     {
         $post = Post::findOne($id);
 
-        if (\Yii::$app->request->isPost) {
+        if (\Yii::$app->request->isPost && !empty(\Yii::$app->request->post())) {
             $post->load(\Yii::$app->request->post());
-            $post->save();
-            $this->redirect('../index');
+            $post->setScenario(Post::SCENARIO_USER_EDIT);
+            if($post->save()) {
+                $this->redirect('../index');
+            }
         }
 
         return $this->render('update', ['post' => $post]);

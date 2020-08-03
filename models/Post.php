@@ -15,6 +15,9 @@ use Yii;
  */
 class Post extends \yii\db\ActiveRecord
 {
+    const SCENARIO_ADMIN_EDIT = 'admin_edit';
+    const SCENARIO_USER_EDIT = 'user_edit';
+
     /**
      * {@inheritdoc}
      */
@@ -32,7 +35,8 @@ class Post extends \yii\db\ActiveRecord
             [['shortDescription', 'description'], 'string'],
             [['createData'], 'safe'],
             [['title'], 'string', 'max' => 400],
-
+            [['title', 'shortDescription', 'description'], 'required', 'on' => [self::SCENARIO_USER_EDIT]],
+            [['title'], 'required', 'on' => [self::SCENARIO_ADMIN_EDIT]],
         ];
     }
 
@@ -48,5 +52,13 @@ class Post extends \yii\db\ActiveRecord
             'createData' => 'Create Data',
             'description' => 'Description',
         ];
+    }
+
+    public function scenarios()
+    {
+        return array_merge(parent::scenarios(), [
+            self::SCENARIO_ADMIN_EDIT => ['title', 'shortDescription', 'description'],
+            self::SCENARIO_USER_EDIT => ['title', 'shortDescription', 'description']
+        ]);
     }
 }
