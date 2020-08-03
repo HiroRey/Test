@@ -20,3 +20,17 @@
         </tr>
     </tbody>
 </table>
+
+<hr>
+
+<div class="alert alert-light" role="alert">
+    <?=\yii\helpers\Html::a('Create Comment', "/post/createComment/" . $post->id, ['class' => 'btn btn-success btn-lg active'])?>
+</div>
+
+<div class="alert alert-dark" role="alert">
+<h3><?=$post->comments->name?></h3>
+    <h3><?=$post->comments->email ?></h3>
+    <h4><?=$post->comments->currentDataCreate ?></h4>
+    <p><?=$post->comments->content ?></p>
+</div>
+
