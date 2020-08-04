@@ -2,6 +2,7 @@
 
 namespace app\controllers\admin;
 
+use app\components\AdminController;
 use Yii;
 use app\models\Post;
 use yii\data\ActiveDataProvider;
@@ -12,23 +13,8 @@ use yii\filters\VerbFilter;
 /**
  * PostController implements the CRUD actions for Post model.
  */
-class PostController extends Controller
+class PostController extends AdminController
 {
-    /**
-     * {@inheritdoc}
-     */
-    public function behaviors()
-    {
-        return [
-            'verbs' => [
-                'class' => VerbFilter::className(),
-                'actions' => [
-                    'delete' => ['POST'],
-                ],
-            ],
-        ];
-    }
-
     /**
      * Lists all Post models.
      * @return mixed
