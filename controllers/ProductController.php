@@ -5,21 +5,29 @@ namespace app\controllers;
 
 
 use app\models\Product;
-use yii\web\Controller;
 
-class ProductController extends Controller
+class ProductController extends \yii\web\Controller
 {
+
     public function actionIndex()
     {
-        $product = Product::find()->all();
+        $products = Product::find()->all();
 
-        return $this->render('index', ['products' => $product]);
+        return $this->render('index', ['products' => $products]);
     }
 
     public function actionView($id)
     {
-        $id = Product::findOne($id);
+        $product = Product::findOne($id);
 
-        return $this->render('view', ['id' => $id]);
+        return $this->render('view', ['product' => $product]);
+    }
+
+    public function actionListCategory($id)
+    {
+
+        $product = Product::findOne($id);
+
+        return $this->render('listCategory', ['product' => $product]);
     }
 }

@@ -3,9 +3,10 @@
 return [
     'class' => 'yii\db\Connection',
     'dsn' => 'mysql:host=localhost;dbname=myblog',
-    'username' => 'myblogUser',
-    'password' => '123456',
+    'username' => 'newUser',
+    'password' => '24z5yyzyX_',
     'charset' => 'utf8',
+    'attributes'=> [ PDO:: ATTR_CASE=> PDO:: CASE_LOWER],
 
     // Schema cache options (for production environment)
     //'enableSchemaCache' => true,

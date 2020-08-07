@@ -12,6 +12,7 @@ class PageController extends \yii\web\Controller
     {
         $page = Page::find()->all();
 
+
         return $this->render('index', ['pages' => $page]);
     }
 

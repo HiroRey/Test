@@ -32,7 +32,6 @@ use yii\widgets\ActiveForm;
             <h3><?=$comment->email ?></h3>
             <h4><?=$comment->currentDataCreate ?></h4>
             <p><?=$comment->content ?></p>
-            <p>Name post: <?=$comment->post->title ?></p>
             <hr>
         <?php endforeach; ?>
     </div>

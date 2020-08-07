@@ -5,13 +5,13 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "Products".
+ * This is the model class for table "product".
  *
  * @property int $id
  * @property string|null $title
- * @property string|null $alias
- * @property int|null $price
  * @property string|null $description
+ * @property float|null $price
+ * @property Category[] $category
  */
 class Product extends \yii\db\ActiveRecord
 {
@@ -20,7 +20,7 @@ class Product extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'Products';
+        return 'product';
     }
 
     /**
@@ -29,9 +29,9 @@ class Product extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['price'], 'integer'],
             [['description'], 'string'],
-            [['title', 'alias'], 'string', 'max' => 255],
+            [['price'], 'number'],
+            [['title'], 'string', 'max' => 300],
         ];
     }
 
@@ -43,9 +43,13 @@ class Product extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'title' => 'Title',
-            'alias' => 'Alias',
-            'price' => 'Price',
             'description' => 'Description',
+            'price' => 'Price',
         ];
+    }
+
+    public function getCategory()
+    {
+        return $this->hasMany(Category::class, ['productId' => 'id']);
     }
 }

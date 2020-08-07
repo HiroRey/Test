@@ -48,9 +48,12 @@ $config = [
             'enablePrettyUrl' => true,
             'showScriptName' => false,
             'rules' => [
+                ['class' => 'yii\rest\UrlRule', 'controller' => 'api/order'],
             ],
         ],
-//
+        'cart' => [
+            'class' => \app\components\Cart::class,
+        ],
     ],
     'params' => $params,
 ];

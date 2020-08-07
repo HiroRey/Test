@@ -5,13 +5,14 @@ namespace app\models;
 use Yii;
 
 /**
- * This is the model class for table "Orders".
+ * This is the model class for table "order".
  *
  * @property int $id
- * @property string|null $customer_name
- * @property string|null $email
- * @property int|null $phone
- * @property string|null $feedback
+ * @property string|null $address
+ * @property string|null $comment
+ * @property int|null $userId
+ *
+ * @property User $user
  */
 class Order extends \yii\db\ActiveRecord
 {
@@ -20,7 +21,7 @@ class Order extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'Orders';
+        return 'order';
     }
 
     /**
@@ -29,9 +30,9 @@ class Order extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['phone'], 'integer'],
-            [['feedback'], 'string'],
-            [['customer_name', 'email'], 'string', 'max' => 255],
+            [['address', 'comment'], 'string'],
+            [['userId'], 'integer'],
+            [['userId'], 'exist', 'skipOnError' => true, 'targetClass' => User::className(), 'targetAttribute' => ['userId' => 'id']],
         ];
     }
 
@@ -42,10 +43,25 @@ class Order extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'customer_name' => 'Customer Name',
-            'email' => 'Email',
-            'phone' => 'Phone',
-            'feedback' => 'Feedback',
+            'address' => 'Address',
+            'comment' => 'Comment',
+            'userId' => 'User ID',
         ];
+    }
+
+    /**
+     * Gets query for [[User]].
+     *
+     * @return \yii\db\ActiveQuery
+     */
+    public function getUser()
+    {
+        return $this->hasOne(User::className(), ['id' => 'userId']);
+    }
+
+    public function getProducts()
+    {
+        return $this->hasMany(Product::class, ['id' => 'productId'])->viaTable('order_product', ['orderId' => 'id']);
+
     }
 }
