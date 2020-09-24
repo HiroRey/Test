@@ -8,7 +8,7 @@ use app\models\Page;
 
 class PageController extends \yii\web\Controller
 {
-    public $order = 132;
+    
     
     public function actionIndex()
     {
